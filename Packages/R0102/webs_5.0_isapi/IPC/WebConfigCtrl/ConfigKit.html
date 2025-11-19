@@ -1,0 +1,91 @@
+<!-- 移动app类接如configkit模板html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+    <script src="./ConfigKitSDK.js"></script>
+    <!-- <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script> -->
+    <script>
+      // VConsole will be exported to `window.VConsole` by default.
+      // var vConsole = new window.VConsole();
+    </script>
+        <style>
+          .loading {
+            width: 30px;
+            height: 30px;
+            border: 2px solid #000;
+            border-top-color: transparent;
+            border-radius: 100%;
+            margin: 50vh auto;
+            animation: circle infinite 0.75s linear;
+          }
+          @keyframes circle {
+            0% {
+              transform: rotate(0);
+            }
+            100% {
+              transform: rotate(360deg);
+            }
+          }
+        </style>
+  </head>
+
+  <body>
+    <div class="loading"></div>
+    <script>
+      const _hash = window.location.hash; //'http://127.0.0.1:1024/WebConfigCtrl/#/portal/login?infoParam={"needWindow": false, "version": "1.0.0", "language": "en_US", "webLocation": "local", "deviceProtocolType":"otap","page":"/config/network/basic/tcpIp","cfgInfo": {"protocolType": "ezviz","deviceType": "PWA","deviceId":"F65153762"}}';
+      console.log('url', _hash);
+      const _url = decodeURIComponent(_hash);
+      console.log('解密url', _url);
+      const _index = _url.indexOf('?');
+      console.log('_index', _index);
+      let _infoParam = {};
+      if (_index > 0) {
+        let _str = _url.slice(_index + 1);
+        console.log('_str', _str);
+        let _arr = _str.split('infoParam=');
+        _infoParam = JSON.parse(_arr[1]);
+      }
+      console.log('_infoParam', _infoParam);
+      const initObj = {
+        needWindow: _infoParam.needWindow,
+        version: _infoParam.version,
+        language: _infoParam.language,
+        webLocation: _infoParam.webLocation,
+        deviceProtocolType: _infoParam.deviceProtocolType,
+        page: _infoParam.page,
+        environment: 'mobile',
+        userInfo: {
+          username: _infoParam.userInfo.username,
+          password: _infoParam.userInfo.password
+        },
+        cfgInfo: {
+          protocolType: _infoParam.cfgInfo.protocolType,
+          deviceType: _infoParam.cfgInfo.deviceType,
+          subDeviceType: _infoParam.cfgInfo.subDeviceType,
+          needProxy: _infoParam.cfgInfo.needProxy,
+          deviceId: _infoParam.cfgInfo.deviceId
+        },
+        customParams: {
+          isConsoleLogOpen: _infoParam.customParams ? _infoParam.customParams.isConsoleLogOpen : false,
+          supportSystemConfig: _infoParam.customParams ? _infoParam.customParams.supportSystemConfig : false
+        },
+        theme: _infoParam.themeColor ? "custom" : null,
+        customTheme: {
+          themeName: _infoParam.themeColor ? "custom" : null,
+          themeColor: _infoParam.themeColor
+        }
+      };
+      const r = window.ConfigKit.Init(initObj)
+        .then((value) => {
+          console.log('window.ConfigKit', window.ConfigKit, value);
+        })
+        .catch((err) => {
+          console.log('window.ConfigKit.err', window.ConfigKit, err);
+        });
+    </script>
+  </body>
+</html>
