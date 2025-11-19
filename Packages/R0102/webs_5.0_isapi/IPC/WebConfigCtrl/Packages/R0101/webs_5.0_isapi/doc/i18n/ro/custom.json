@@ -1,0 +1,13 @@
+{
+  "lowPowerMode": "Control economie de energie",
+  "dNSHostName": "Configurarea numelui de gazdă",
+  "registerDNSName": "Înregistrare nume DNS",
+  "uploadRecord": "Încărcare video",
+  "sipProxy": "Adresă server proxy",
+  "sipProxyPort": "Port server proxy",
+  "sipPhoneNumberInvalid": "Număr de telefon nevalid.",
+  "voiceAlarmToSIPPhone": "Alarmă vocală pe telefon",
+  "sipAlarmTargetPhoneNumberTable": "Listă de alarmă",
+  "sipPhoneNumber": "Nr. telefon",
+  "sipRemarkName": "Menţiune"
+}
